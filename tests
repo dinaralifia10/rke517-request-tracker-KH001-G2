@@ -18,3 +18,55 @@ test('a rejected transition preserves input', () => {
   const result=transitionRequest(requests,'REQ-105','Processing','Student-A');
   assert.equal(result.ok,false); assert.deepEqual(requests,before);
 });
+test('pencarian ID sebagian', () => {
+  const result = filterRequests(requests, {
+    query: '104'
+  });
+
+  assert.ok(
+    result.some(request => request.id === 'REQ-104')
+  );
+});
+
+test('pencarian menggunakan huruf kecil', () => {
+  const result = filterRequests(requests, {
+    query: 'req-104'
+  });
+
+  assert.ok(
+    result.some(request => request.id === 'REQ-104')
+  );
+});
+
+test('pencarian mengabaikan spasi di awal dan akhir', () => {
+  const result = filterRequests(requests, {
+    query: '  REQ-104  '
+  });
+
+  assert.ok(
+    result.some(request => request.id === 'REQ-104')
+  );
+});
+
+test('filter status dan pencarian digunakan bersamaan', () => {
+  const result = filterRequests(requests, {
+    status: 'Processing',
+    query: 'REQ-102'
+  });
+
+  assert.ok(
+    result.every(request => request.status === 'Processing')
+  );
+
+  assert.ok(
+    result.every(request => request.id.includes('REQ-102'))
+  );
+});
+
+test('pencarian yang tidak cocok menghasilkan daftar kosong', () => {
+  const result = filterRequests(requests, {
+    query: 'REQ-999'
+  });
+
+  assert.deepEqual(result, []);
+});
