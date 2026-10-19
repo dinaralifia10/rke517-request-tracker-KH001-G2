@@ -15,11 +15,79 @@ export function filterRequests(requests, {status = 'All', query = ''} = {}) {
 }
 
 export function transitionRequest(requests, id, nextStatus, actor, {reason = ''} = {}) {
-  // Starter: read-only. Status transitions are your Cycle 2 task.
-  if (!requests.some(item => item.id === id)) {
-    return {ok: false, requests, error: 'Request not found.'};
+  const currentRequest = requests.find(item => item.id === id);
+
+  if (!currentRequest) {
+    return { ok: false, requests, error: 'Request not found.' };
   }
-  return {ok: true, requests, error: 'Status updates are not implemented in the starter.'};
+
+  const trimmedActor = actor.trim();
+
+  if (!trimmedActor) {
+    return { ok: false, requests, error: 'Staff alias is required.' };
+  }
+
+  const allowedTransitions = {
+    'Awaiting review': ['Processing', 'Cancelled'],
+    'Processing': ['Ready', 'Cancelled'],
+    'Ready': ['Collected', 'Cancelled'],
+    'Collected': [],
+    'Cancelled': []
+  };
+
+  if (!allowedTransitions[currentRequest.status]?.includes(nextStatus)) {
+    return {
+      ok: false,
+      requests,
+      error: 'This status transition is not allowed.'
+    };
+  }
+
+  if (
+    nextStatus === 'Ready' &&
+    (currentRequest.identity !== 'verified' ||
+      currentRequest.authorisation !== 'verified')
+  ) {
+    return {
+      ok: false,
+      requests,
+      error: 'Identity and authorisation must both be verified before marking Ready.'
+    };
+  }
+
+  const trimmedReason = reason.trim();
+
+  if (nextStatus === 'Cancelled' && trimmedReason.length < 10) {
+    return {
+      ok: false,
+      requests,
+      error: 'Cancellation reason must be at least 10 characters.'
+    };
+  }
+
+  const updatedRequest = {
+    ...currentRequest,
+    status: nextStatus
+  };
+
+  const updatedRequests = requests.map(item =>
+    item.id === id ? updatedRequest : item
+  );
+
+  const event = {
+    requestId: id,
+    from: currentRequest.status,
+    to: nextStatus,
+    actor: trimmedActor,
+    at: new Date().toISOString(),
+    ...(nextStatus === 'Cancelled' ? { reason: trimmedReason } : {})
+  };
+
+  return {
+    ok: true,
+    requests: updatedRequests,
+    event
+  };
 }
 
 import {requests as seed} from './fixtures.js';
