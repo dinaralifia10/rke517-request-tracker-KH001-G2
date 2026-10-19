@@ -1,0 +1,66 @@
+// Synthetic requests only. These are not patient records.
+export const requests = [
+  {id:'REQ-101', type:'Visit summary', unit:'General clinic', status:'Awaiting review', identity:'verified', authorisation:'verified'},
+  {id:'REQ-102', type:'Attendance letter', unit:'Dental clinic', status:'Processing', identity:'unverified', authorisation:'verified'},
+  {id:'REQ-103', type:'Visit summary', unit:'General clinic', status:'Processing', identity:'verified', authorisation:'pending'},
+  {id:'REQ-104', type:'Referral copy', unit:'Dental clinic', status:'Ready', identity:'verified', authorisation:'verified'},
+  {id:'REQ-105', type:'Attendance letter', unit:'General clinic', status:'Collected', identity:'verified', authorisation:'verified'},
+  {id:'REQ-106', type:'Referral copy', unit:'General clinic', status:'Cancelled', identity:'unverified', authorisation:'pending'}
+];
+
+// Implement the supplied classroom requirements here, with your chosen AI harness.
+export function filterRequests(requests, {status = 'All', query = ''} = {}) {
+  // Starter: displays all rows. Filtering and search are your Cycle 1 task.
+  return requests.slice();
+}
+
+export function transitionRequest(requests, id, nextStatus, actor, {reason = ''} = {}) {
+  // Starter: read-only. Status transitions are your Cycle 2 task.
+  if (!requests.some(item => item.id === id)) {
+    return {ok: false, requests, error: 'Request not found.'};
+  }
+  return {ok: false, requests, error: 'Status updates are not implemented in the starter.'};
+}
+
+import {requests as seed} from './fixtures.js';
+import {filterRequests, transitionRequest} from './tracker.js';
+let state = structuredClone(seed);
+const byId = id => document.getElementById(id);
+
+function render() {
+  const visible = filterRequests(state, {status: byId('status').value, query: byId('query').value});
+  byId('rows').replaceChildren();
+  for (const item of visible) {
+    const row = document.createElement('tr');
+    for (const key of ['id','type','unit','status','identity','authorisation']) {
+      const cell = document.createElement('td');
+      cell.textContent = item[key];
+      row.append(cell);
+    }
+    byId('rows').append(row);
+  }
+  byId('count').textContent = `${visible.length} of ${state.length} requests shown`;
+  byId('empty').hidden = visible.length !== 0;
+}
+
+for (const item of state) {
+  const option = document.createElement('option');
+  option.value = item.id;
+  option.textContent = item.id;
+  byId('request-id').append(option);
+}
+byId('status').addEventListener('change', render);
+byId('query').addEventListener('input', render);
+byId('update').addEventListener('submit', e => {
+  e.preventDefault();
+  const result = transitionRequest(state, byId('request-id').value, byId('next-status').value, byId('actor').value);
+  if (!result.ok) { byId('message').textContent = result.error; return; }
+  state = result.requests;
+  byId('message').textContent = 'Status updated.';
+  const event = result.event;
+  const item = document.createElement('li');
+  item.textContent = `${event.requestId}: ${event.from} → ${event.to} by ${event.actor} at ${event.at}${event.reason ? ' (' + event.reason + ')' : ''}`;
+  byId('audit').append(item);
+  render();
+});
+render();
