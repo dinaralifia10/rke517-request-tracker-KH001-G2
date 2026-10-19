@@ -19,3 +19,21 @@ AGENTS.md is the shared instruction source. Different tools discover different f
 
 ## What to deliver
 Three linked feature/change pull requests, added tests, browser evidence, a final GitHub Actions run, a tagged v1.0.0 training release and docs/WORK_LOG.md. See the student assignment for human roles and review expectations. No public hosting is required.
+
+## Feature Pull Requests
+
+The following feature and change pull requests have been merged into `main`:
+
+- [FEAT-01: Search and filter requests (#2)](https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/pull/2)
+- [FEAT-02: Control request status transitions (#4)](https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/pull/4)
+- [CR-03: Validate cancellation reason (#6)](https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/pull/6)
+
+## Project Documentation
+
+- [Group Work Log](docs)
+
+## Verification and Evidence
+
+Automated tests are run through GitHub Actions. Refer to the relevant pull requests and workflow runs for the recorded results.
+
+Browser verification evidence and final release information should be documented after the corresponding tasks have been completed.
