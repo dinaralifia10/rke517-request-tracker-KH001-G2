@@ -121,8 +121,21 @@ byId('status').addEventListener('change', render);
 byId('query').addEventListener('input', render);
 byId('update').addEventListener('submit', e => {
   e.preventDefault();
-  const result = transitionRequest(state, byId('request-id').value, byId('next-status').value, byId('actor').value);
-  if (!result.ok) { byId('message').textContent = result.error; return; }
+
+  const reason = byId('cancellation-reason').value;
+
+  const result = transitionRequest(
+    state,
+    byId('request-id').value,
+    byId('next-status').value,
+    byId('actor').value,
+    { reason }
+  );
+
+  if (!result.ok) {
+    byId('message').textContent = result.error;
+    return;
+  }
   state = result.requests;
   byId('message').textContent = 'Status updated.';
   const event = result.event;
