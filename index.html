@@ -12,7 +12,19 @@
 <p>The starter displays requests. Your group will implement the update workflow.</p>
 <form id="update"><div class="controls"><label>Request<select id="request-id"></select></label>
 <label>Next status<select id="next-status"><option>Processing</option><option>Ready</option><option>Collected</option><option>Cancelled</option></select></label>
-<label>Staff alias<input id="actor" placeholder="For example Student-A"></label></div>
-<button type="submit">Update status</button></form><p id="message" role="status"></p></section>
+<label>Staff alias<input id="actor" placeholder="For example Student-A"></label>
+</div>
+
+<label for="cancellation-reason">
+  Cancellation reason (minimum 10 characters)
+</label>
+<textarea
+  id="cancellation-reason"
+  name="cancellationReason"
+  placeholder="Enter the reason for cancellation..."
+  rows="3"
+></textarea>
+
+<button type="submit">Update status</button>
 <section><h2>Session audit trail</h2><p>Training record only. It is cleared on reload.</p><ol id="audit"></ol></section>
 </main><script type="module" src="src/app.js"></script></body></html>
