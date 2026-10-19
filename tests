@@ -70,3 +70,54 @@ test('pencarian yang tidak cocok menghasilkan daftar kosong', () => {
 
   assert.deepEqual(result, []);
 });
+test('alasan pembatalan valid diterima dan dipangkas', () => {
+  const result = transitionRequest(
+    requests,
+    'REQ-101',
+    'Cancelled',
+    'Student-A',
+    { reason: '  Pasien membatalkan permintaan  ' }
+  );
+
+  assert.equal(result.ok, true);
+  assert.equal(result.event.reason, 'Pasien membatalkan permintaan');
+});
+
+test('alasan pembatalan kurang dari 10 karakter ditolak', () => {
+  const result = transitionRequest(
+    requests,
+    'REQ-101',
+    'Cancelled',
+    'Student-A',
+    { reason: 'Batal' }
+  );
+
+  assert.equal(result.ok, false);
+  assert.equal(result.event, undefined);
+});
+
+test('alasan yang hanya berisi spasi ditolak', () => {
+  const result = transitionRequest(
+    requests,
+    'REQ-101',
+    'Cancelled',
+    'Student-A',
+    { reason: '          ' }
+  );
+
+  assert.equal(result.ok, false);
+  assert.equal(result.event, undefined);
+});
+
+test('perpindahan selain pembatalan tidak menyimpan alasan', () => {
+  const result = transitionRequest(
+    requests,
+    'REQ-101',
+    'Ready',
+    'Student-A',
+    { reason: 'Alasan yang tidak boleh disimpan' }
+  );
+
+  assert.equal(result.ok, true);
+  assert.equal(Object.hasOwn(result.event, 'reason'), false);
+});
