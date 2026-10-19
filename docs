@@ -19,27 +19,46 @@ Keep each run tied to a branch/commit. Run the browser checks yourself. Automate
 Reset the page between independent cases. Add at least one boundary test your group designs, with its rationale. For example, reason length is measured after trimming. Cover both functions in automated tests as well as these browser checks.
 
 # Group work log
-Class: RKE517 KH001
-Assigned group:
-Group and member names:
+
+**Class:** RKE517 KH001  
+**Assigned group:** Group 02
+
+**Group and member names:**
+- Owner: Dinar Alifia Nurshabria
+- Member: Dwina Rinata Palupi
+- Member: Alfath Muhammad Yuhyinnufus
+
 Each member may use a different AI coding harness or model. All members work in the same GitHub repository and follow the same project rules and review process.
 
 | Member | Harness | Model if shown | Connection route | Access check and result |
 |---|---|---|---|---|
-| | | | | |
-| | | | | |
+| Dinar Alifia Nurshabria | ChatGPT web | GPT-6 | Browser to GitHub repository | Repository accessible; PR workflow completed |
+| Dwina Rinata Palupi | ChatGPT web | GPT-6 | Browser to GitHub repository | Repository accessible; PR workflow completed |
+| Alfath Muhammad Yuhyinnufus | Not recorded | Not recorded | Not recorded | Not recorded |
 
-Add a row for every member. Explain tool choice, access and any operator arrangement. A member may change tools; record the tool actually used for each cycle.
-Date and result of the group’s initial repository connection test:
+**Date and result of the group’s initial repository connection test:** Not recorded.
 
 For each cycle record the human owner, reviewer, issue link, agent run/excerpt, branch, pull request, actual checks, one accepted/corrected/rejected AI suggestion, and merge commit. Record an agent-created commit honestly; ownership is shown by the issue, prompt and review, not a fabricated human author.
 
 | Cycle | Human owner and harness | Human reviewer and tools used | Issue | PR | Agent run or excerpt | Check run and commit | Decision |
 |---|---|---|---|---|---|---|---|
-| 1 | | | | | | | |
-| 2 | | | | | | | |
-| 3 | | | | | | | |
-| VER-04 (four-person group) | | | | | | | |
+| 1 | Dinar Alifia Nurshabria; tool used: ChatGPT web | Dwina Rinata Palupi; tool used: Github | https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/issues/1 | [PR #2 — FEAT-01](https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/pull/2) | AI-assisted implementation of search and filtering for document requests | PR merged; record actual Actions result and merge commit | Record one actual AI suggestion that was accepted, corrected, or rejected |
+| 2 | Dwina Rinata Palupi; tool used: ChatGPT web | Dinar Alifia Nurshabrina; tool used: Github | https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/issues/3 | [PR #4 — FEAT-02](https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/pull/4) | AI-assisted implementation of permitted request status transitions | PR merged; record actual Actions result and merge commit | Record one actual AI suggestion that was accepted, corrected, or rejected |
+| 3 | Dinar Alifia Nurshabria; tool used: ChatGPT web | Dwina Rinata Palupi; tool used: Github | https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/issues/5 | [PR #6 — CR-03](https://github.com/dinaralifia10/rke517-request-tracker-KH001-G2/pull/6) | AI-assisted validation of cancellation reasons, including a minimum of 10 characters after trimming whitespace | PR merged; checks reported as passing; record exact Actions run and merge commit | Record the actual review decision and the AI suggestion involved |
+| VER-04 (four-person group) | Not applicable to the current three-member group unless the instructor requires it |
 
 ## Individual explanation
-Each member adds 100–150 words: one requirement you directed, one diff you can explain, one review decision you made, and what automated checks did not prove. Name yourself. Do not ask AI to invent your work or decisions.
+
+### Dinar Alifia Nurshabria
+
+I was responsible for Cycle 1, which focused on searching and filtering document requests, and Cycle 3, which focused on cancellation-reason validation. The search feature allows users to find requests using their request IDs, while the status filter helps narrow down the displayed results. For Cycle 3, the application checks that a cancellation reason contains at least 10 characters after leading and trailing whitespace is removed. I also worked on tests for valid reasons, short reasons, whitespace-only reasons, and reasons that should not be stored for other status changes. During review, I checked the changes against the project requirements. The automated tests passed, but passing tests alone does not prove that every possible input works correctly or that the interface is easy to use. Browser testing is still important to verify the application's behavior directly.
+
+### Dwina Rinata Palupi
+
+I was responsible for Cycle 2, which focused on controlling request status transitions in the Clinic Document Request Tracker. This feature helps ensure that a request can only move to a status permitted by the project requirements. The implementation needs to reject unknown request IDs and disallowed transitions while preserving the original request data when a transition is rejected. It is also important to check the conditions required before a request can move to the Ready status. During review, I considered whether the status-transition rules matched the intended workflow and whether rejected changes left the request data unchanged. Automated tests can check these defined conditions, but they do not prove that every possible transition or user interaction works correctly. The application should also be tested in a browser, and the code changes should be reviewed against the assignment requirements.
+
+### Alfath Muhammad Yuhyinnufus
+
+Complete this section with 100–150 words describing the requirement you directed or review work you performed, a code diff or review decision you can explain, and what the automated checks did not prove.
+
+
