@@ -1,0 +1,45 @@
+# Test record
+Keep each run tied to a branch/commit. Run the browser checks yourself. Automated function tests do not prove the controls are wired correctly.
+
+| ID | Input or starting state | Expected result | Actual result | Pass or fail | Commit and evidence |
+|---|---|---|---|---|---|
+| T01 | All; empty search | Six requests | | | |
+| T02 | Processing; query " req-10 " | REQ-102 and REQ-103 only | | | |
+| T03 | All; query "req-104" | REQ-104 only | | | |
+| T04 | Ready; query "REQ-999" | Zero and clear empty message | | | |
+| T05 | REQ-101 to Processing; Student-A | Success and one audit event | | | |
+| T06 | REQ-102 to Ready; Student-A | Rejected because identity is unverified | | | |
+| T07 | REQ-103 to Ready; Student-A | Rejected because authorisation is pending | | | |
+| T08 | REQ-104 to Collected; Student-A | Success and one audit event | | | |
+| T09 | REQ-105 to Processing | Rejected because Collected is terminal | | | |
+| T10 | REQ-101 to Processing; blank alias | Rejected without mutation or event | | | |
+| T11 | REQ-101 to Cancelled; reason "short" | Rejected after CR-03 | | | |
+| T12 | REQ-101 to Cancelled; reason "  Duplicate request  " | Success; event reason is "Duplicate request" | | | |
+
+Reset the page between independent cases. Add at least one boundary test your group designs, with its rationale. For example, reason length is measured after trimming. Cover both functions in automated tests as well as these browser checks.
+
+# Group work log
+Class: RKE517 KH001
+Assigned group:
+Group and member names:
+Each member may use a different AI coding harness or model. All members work in the same GitHub repository and follow the same project rules and review process.
+
+| Member | Harness | Model if shown | Connection route | Access check and result |
+|---|---|---|---|---|
+| | | | | |
+| | | | | |
+
+Add a row for every member. Explain tool choice, access and any operator arrangement. A member may change tools; record the tool actually used for each cycle.
+Date and result of the group’s initial repository connection test:
+
+For each cycle record the human owner, reviewer, issue link, agent run/excerpt, branch, pull request, actual checks, one accepted/corrected/rejected AI suggestion, and merge commit. Record an agent-created commit honestly; ownership is shown by the issue, prompt and review, not a fabricated human author.
+
+| Cycle | Human owner and harness | Human reviewer and tools used | Issue | PR | Agent run or excerpt | Check run and commit | Decision |
+|---|---|---|---|---|---|---|---|
+| 1 | | | | | | | |
+| 2 | | | | | | | |
+| 3 | | | | | | | |
+| VER-04 (four-person group) | | | | | | | |
+
+## Individual explanation
+Each member adds 100–150 words: one requirement you directed, one diff you can explain, one review decision you made, and what automated checks did not prove. Name yourself. Do not ask AI to invent your work or decisions.
