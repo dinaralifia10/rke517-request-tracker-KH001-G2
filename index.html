@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clinic document request tracker</title><link rel="stylesheet" href="style.css"></head>
+<body><main><p class="eyebrow">RME542 GROUP PROJECT</p><h1>Clinic document request tracker</h1>
+<p>Fictional training prototype. Six synthetic requests. Changes reset when this page reloads.</p>
+<section aria-labelledby="search-heading"><h2 id="search-heading">Find a request</h2>
+<div class="controls"><label>Status<select id="status"><option>All</option><option>Awaiting review</option><option>Processing</option><option>Ready</option><option>Collected</option><option>Cancelled</option></select></label>
+<label>Request ID<input id="query" placeholder="For example REQ-104"></label></div>
+<p id="count" aria-live="polite"></p><div class="table-scroll"><table><thead><tr><th>ID</th><th>Type</th><th>Unit</th><th>Status</th><th>Identity</th><th>Authorisation</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p id="empty" hidden>No matching requests.</p></section>
+<section aria-labelledby="change-heading"><h2 id="change-heading">Update request status</h2>
+<p>The starter displays requests. Your group will implement the update workflow.</p>
+<form id="update"><div class="controls"><label>Request<select id="request-id"></select></label>
+<label>Next status<select id="next-status"><option>Processing</option><option>Ready</option><option>Collected</option><option>Cancelled</option></select></label>
+<label>Staff alias<input id="actor" placeholder="For example Student-A"></label></div>
+<button type="submit">Update status</button></form><p id="message" role="status"></p></section>
+<section><h2>Session audit trail</h2><p>Training record only. It is cleared on reload.</p><ol id="audit"></ol></section>
+</main><script type="module" src="src/app.js"></script></body></html>
